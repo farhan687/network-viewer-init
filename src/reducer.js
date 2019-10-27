@@ -7,7 +7,7 @@ const initialState = {
   totalNetworkTime: null,
   sort: {
     key: 'startedDateTime',
-    isAcs: true
+    isAcs: true,
   },
   filter: {
     search: '',
@@ -37,7 +37,7 @@ const reducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         filter,
-        data: filterData(state.actualData, filter)
+        data: filterData(state.actualData, filter),
       };
     }
     case types.UPDATE_FILTER: {
@@ -48,14 +48,14 @@ const reducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         filter,
-        data: filterData(state.actualData, filter)
+        data: filterData(state.actualData, filter),
       };
     }
     case types.UPDATE_SORT: {
       return {
         ...state,
         search: payload,
-        data: sortBy(state.data, payload.key, payload.isAcs)
+        data: sortBy(state.data, payload.key, payload.isAcs),
       };
     }
 

@@ -1,28 +1,28 @@
 export const VIEWER_FIELDS = [
   {
     key: 'status',
-    name: 'Status'
+    name: 'Status',
   },
   {
     key: 'method',
-    name: 'Method'
+    name: 'Method',
   },
   {
     key: 'domain',
-    name: 'Domain'
+    name: 'Domain',
   },
   {
     key: 'type',
-    name: 'Type'
+    name: 'Type',
   },
   {
     key: 'size',
     name: 'Size',
-    unit: 'kb'
+    unit: 'kb',
   },
   {
     key: 'filename',
-    name: 'File'
+    name: 'File',
   },
 ];
 
@@ -40,42 +40,42 @@ export const FILTERS = [
     name: 'HTML',
     filterBy: {
       key: 'type',
-      value: 'html'
-    }
+      value: 'html',
+    },
   },
   {
     name: 'CSS',
     filterBy: {
       key: 'type',
-      value: 'css'
-    }
+      value: 'css',
+    },
   },
   {
     name: 'JS',
     filterBy: {
       key: 'type',
-      value: 'javascript'
-    }
+      value: 'javascript',
+    },
   },
   {
     name: 'XHR',
     filterBy: {
       key: 'type',
-      value: 'xhr'
-    }
+      value: 'xhr',
+    },
   },
   {
     name: 'Fonts',
     filterBy: {
       key: 'type',
-      value: 'fonts'
-    }
+      value: 'fonts',
+    },
   },
   {
     name: 'Images',
     filterBy: {
       key: 'type',
-      value: 'images'
-    }
-  }
+      value: 'images',
+    },
+  },
 ];

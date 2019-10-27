@@ -1,13 +1,13 @@
-export const getUrlInfo = url => {
+export const getUrlInfo = (url) => {
   const urlSplits = url.split('/');
   return {
     domain: urlSplits[2],
     filename: urlSplits[urlSplits.length - 1],
-    url
+    url,
   };
 };
 
-export const parseSize = headers => {
+export const parseSize = (headers) => {
   const contentInfo = headers.find(({ name }) => name === 'content-length');
   if (!contentInfo) {
     return 0;
@@ -15,7 +15,7 @@ export const parseSize = headers => {
   return Number((contentInfo.value / 1000).toFixed(2));
 };
 
-export const getContentType = headers => {
+export const getContentType = (headers) => {
   const contentInfo = headers.find(({ name }) => name === 'content-type');
   if (!contentInfo) {
     return '';
@@ -26,10 +26,10 @@ export const getContentType = headers => {
 
 export const getTimings = ({ startedDateTime, timings }, firstEntryTime) => ({
   ...timings,
-  startTime: new Date(startedDateTime).getTime() - new Date(firstEntryTime).getTime()
+  startTime: new Date(startedDateTime).getTime() - new Date(firstEntryTime).getTime(),
 });
 
-export const prepareViewerData = entries => {
+export const prepareViewerData = (entries) => {
   const firstEntryTime = entries[0].startedDateTime;
   const lastEntryTime = entries[entries.length - 1].startedDateTime;
   const data = entries
@@ -41,27 +41,27 @@ export const prepareViewerData = entries => {
       startedDateTime: entry.startedDateTime,
       type: getContentType(entry.response.headers),
       timings: getTimings(entry, firstEntryTime),
-      ...getUrlInfo(entry.request.url)
+      ...getUrlInfo(entry.request.url),
     }));
 
-    const totalNetworkTime = new Date(lastEntryTime).getTime() - new Date(firstEntryTime).getTime() + data[data.length - 1].timings.receive;
-    console.log(totalNetworkTime);
+  const totalNetworkTime = new Date(lastEntryTime).getTime()
+    - new Date(firstEntryTime).getTime()
+    + data[data.length - 1].timings.receive;
   return {
     totalNetworkTime,
-    data
+    data,
   };
 };
 
-export const sortBy = (data, key, isAsc = true) =>
-  data.sort((prev, next) => {
-    if (prev[key] < next[key]) {
-      return isAsc ? -1 : 1;
-    }
-    if (prev[key] > next[key]) {
-      return isAsc ? 1 : 1;
-    }
-    return 0;
-  });
+export const sortBy = (data, key, isAsc = true) => data.sort((prev, next) => {
+  if (prev[key] < next[key]) {
+    return isAsc ? -1 : 1;
+  }
+  if (prev[key] > next[key]) {
+    return isAsc ? 1 : 1;
+  }
+  return 0;
+});
 
 export const filterData = (data, filter) => {
   const { search, key, value } = filter;
@@ -69,7 +69,7 @@ export const filterData = (data, filter) => {
 
   return !trimmedSearch && !key
     ? data
-    : data.filter(info => {
+    : data.filter((info) => {
       const isSearchMatched = trimmedSearch ? info.filename.includes(trimmedSearch) : true;
       const isFilterMatched = key ? info[key] === value : true;
       return isSearchMatched && isFilterMatched;

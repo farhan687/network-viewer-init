@@ -1,11 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
 
 import { VIEWER_FIELDS } from '../constants';
 import Styles from './ViewerHeader.styles.css';
 
-const ViewerHeader = ({ maxTime }) => (
+const ViewerHeader = () => (
   <thead>
     <tr>
       {VIEWER_FIELDS.map(({ key, name }) => (
@@ -17,9 +15,5 @@ const ViewerHeader = ({ maxTime }) => (
     </tr>
   </thead>
 );
-
-ViewerHeader.propTypes = {
-  maxTime: PropTypes.number.isRequired,
-};
 
 export default ViewerHeader;
