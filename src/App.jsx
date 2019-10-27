@@ -8,6 +8,7 @@ import Filters from './Components/filters/Filters';
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState)
+  const { filter, data, totalNetworkTime } = state;
 
   useEffect(() => {
     actions.updateData(dispatch)(prepareViewerData(sampleData.log.entries));
@@ -16,11 +17,11 @@ const App = () => {
   return (
     <div className="App">
       <Filters
-        searchKeyword={state.filter.search}
+        searchKeyword={filter.search}
         updateSearch={actions.updateSearch(dispatch)}
         updateFilter={actions.updateFilter(dispatch)}
       />
-      <ViewerContainer data={state.data} />
+      <ViewerContainer data={data} totalNetworkTime={totalNetworkTime} />
     </div>
   );
 };

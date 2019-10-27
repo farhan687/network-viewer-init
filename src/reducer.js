@@ -4,6 +4,7 @@ import { filterData, sortBy } from './utils';
 const initialState = {
   data: [],
   actualData: [],
+  totalNetworkTime: null,
   sort: {
     key: 'startedDateTime',
     isAcs: true
@@ -19,11 +20,13 @@ const reducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case types.UPDATE_DATA: {
       const { sort } = state;
-      const sortedData = sortBy(payload, sort.key, sort.isAcs);
+      const { data, totalNetworkTime } = payload;
+      const sortedData = sortBy(data, sort.key, sort.isAcs);
       return {
         ...state,
         data: sortedData,
         actualData: sortedData,
+        totalNetworkTime,
       };
     }
     case types.UPDATE_SEARCH: {

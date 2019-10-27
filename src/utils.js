@@ -24,17 +24,33 @@ export const getContentType = headers => {
   return type.length > 1 ? type[1] : type[0];
 };
 
-export const prepareViewerData = entries =>
-  entries
-  .filter(entry => entry.response)
-  .map(entry => ({
-    status: entry.response.status,
-    method: entry.request.method,
-    size: parseSize(entry.response.headers),
-    startedDateTime: entry.startedDateTime,
-    type: getContentType(entry.response.headers),
-    ...getUrlInfo(entry.request.url)
-  }));
+export const getTimings = ({ startedDateTime, timings }, firstEntryTime) => ({
+  ...timings,
+  startTime: new Date(startedDateTime).getTime() - new Date(firstEntryTime).getTime()
+});
+
+export const prepareViewerData = entries => {
+  const firstEntryTime = entries[0].startedDateTime;
+  const lastEntryTime = entries[entries.length - 1].startedDateTime;
+  const data = entries
+    .filter(entry => entry.response)
+    .map(entry => ({
+      status: entry.response.status,
+      method: entry.request.method,
+      size: parseSize(entry.response.headers),
+      startedDateTime: entry.startedDateTime,
+      type: getContentType(entry.response.headers),
+      timings: getTimings(entry, firstEntryTime),
+      ...getUrlInfo(entry.request.url)
+    }));
+
+    const totalNetworkTime = new Date(lastEntryTime).getTime() - new Date(firstEntryTime).getTime() + data[data.length - 1].timings.receive;
+    console.log(totalNetworkTime);
+  return {
+    totalNetworkTime,
+    data
+  };
+};
 
 export const sortBy = (data, key, isAsc = true) =>
   data.sort((prev, next) => {
