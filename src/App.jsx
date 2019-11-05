@@ -6,6 +6,8 @@ import * as actions from './actions';
 import Filters from './Components/filters/Filters';
 import ImportHar from './Components/ImportHAR';
 
+import Styles from './App.module.css';
+
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { filter, data, totalNetworkTime } = state;
@@ -15,7 +17,7 @@ const App = () => {
   );
 
   return (
-    <div className="App">
+    <div className={Styles['app-container']}>
       <ImportHar onDataLoad={prepareData} />
       <Filters
         searchKeyword={filter.search}

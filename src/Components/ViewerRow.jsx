@@ -4,10 +4,12 @@ import PropTypes from 'prop-types';
 import { VIEWER_FIELDS } from '../constants';
 import TimelineChart from './TimelineChart';
 
+import Styles from './ViewerHeader.module.css';
+
 const ViewerRow = ({ payload, maxTime }) => (
   <tr>
     {VIEWER_FIELDS.map(({ key, unit }) => (
-      <td key={key}>
+      <td className={Styles[key]} key={key}>
         {payload[key]}
         {' '}
         {unit}

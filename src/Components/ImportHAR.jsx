@@ -11,7 +11,6 @@ const ImportHar = ({ onDataLoad }) => {
     reader.onload = () => {
       try {
         const data = JSON.parse(reader.result);
-        console.log(data);
         onDataLoad(data);
       } catch (error) {
         console.log('Error while parsing HAR file', error);

@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { VIEWER_FIELDS } from '../constants';
-import Styles from './ViewerHeader.styles.css';
+import Styles from './ViewerHeader.module.css';
 
 const ViewerHeader = () => (
   <thead>
     <tr>
       {VIEWER_FIELDS.map(({ key, name }) => (
-        <th key={key}>{name}</th>
+        <th className={Styles[key]} key={key}>{name}</th>
       ))}
       <th className={Styles['timeline-header']}>
         Timeline chart

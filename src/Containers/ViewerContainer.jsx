@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import ViewerHeader from '../Components/ViewerHeader';
 import ViewerRow from '../Components/ViewerRow';
 
+import Styles from './ViewerContainer.module.css';
+
 const ViewerContainer = ({ data, totalNetworkTime }) => (data.length ? (
-  <table>
+  <table className={Styles.table}>
     <ViewerHeader maxTime={totalNetworkTime} />
     <tbody>
       {data.map(payload => (
