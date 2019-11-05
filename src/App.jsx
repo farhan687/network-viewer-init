@@ -1,21 +1,22 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer } from 'react';
 import ViewerContainer from './Containers/ViewerContainer';
 import { reducer, initialState } from './reducer';
-import sampleData from './data/har2.json';
 import { prepareViewerData } from './utils';
 import * as actions from './actions';
 import Filters from './Components/filters/Filters';
+import ImportHar from './Components/ImportHAR';
 
 const App = () => {
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [state, dispatch] = useReducer(reducer, initialState);
   const { filter, data, totalNetworkTime } = state;
 
-  useEffect(() => {
-    actions.updateData(dispatch)(prepareViewerData(sampleData.log.entries));
-  }, []);
+  const prepareData = newNetworkData => (
+    actions.updateData(dispatch)(prepareViewerData(newNetworkData.log.entries))
+  );
 
   return (
     <div className="App">
+      <ImportHar onDataLoad={prepareData} />
       <Filters
         searchKeyword={filter.search}
         updateSearch={actions.updateSearch(dispatch)}
