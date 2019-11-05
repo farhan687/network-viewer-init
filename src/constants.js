@@ -12,17 +12,17 @@ export const VIEWER_FIELDS = [
     name: 'Domain',
   },
   {
+    key: 'filename',
+    name: 'File',
+  },
+  {
     key: 'type',
     name: 'Type',
   },
   {
     key: 'size',
     name: 'Size',
-    unit: 'kb',
-  },
-  {
-    key: 'filename',
-    name: 'File',
+    unit: 'KB',
   },
 ];
 

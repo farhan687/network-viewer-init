@@ -1,3 +1,7 @@
+.thead tr th {
+  text-align: left;
+}
+
 .filename {
   max-width: 150px;
   text-overflow: ellipsis;
@@ -7,5 +11,5 @@
 }
 
 .timeline-header {
-  width: 200px;
+  width: 300px;
 }

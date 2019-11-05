@@ -1,18 +1,25 @@
 export const getUrlInfo = (url) => {
-  const urlSplits = url.split('/');
+  const urlInfo = new URL(url);
+  const filename = urlInfo.pathname.split('/');
+
   return {
-    domain: urlSplits[2],
-    filename: urlSplits[urlSplits.length - 1],
-    url,
+    domain: urlInfo.host,
+    filename: filename[filename.length - 1] + urlInfo.search,
+    url: urlInfo.href,
   };
 };
 
-export const parseSize = (headers) => {
+export const parseSize = ({ headers, content }) => {
+  if (content && content.size) {
+    return Number((content.size / 1024).toFixed(2));
+  }
+
   const contentInfo = headers.find(({ name }) => name === 'content-length');
   if (!contentInfo) {
     return 0;
   }
-  return Number((contentInfo.value / 1000).toFixed(2));
+
+  return Number((contentInfo.value / 1024).toFixed(2));
 };
 
 export const getContentType = (headers) => {
@@ -34,10 +41,11 @@ export const prepareViewerData = (entries) => {
   const lastEntryTime = entries[entries.length - 1].startedDateTime;
   const data = entries
     .filter(entry => entry.response)
-    .map(entry => ({
+    .map((entry, index) => ({
+      index,
       status: entry.response.status,
       method: entry.request.method,
-      size: parseSize(entry.response.headers),
+      size: parseSize(entry.response),
       startedDateTime: entry.startedDateTime,
       type: getContentType(entry.response.headers),
       timings: getTimings(entry, firstEntryTime),

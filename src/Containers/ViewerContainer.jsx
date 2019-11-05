@@ -10,7 +10,7 @@ const ViewerContainer = ({ data, totalNetworkTime }) => (data.length ? (
     <ViewerHeader maxTime={totalNetworkTime} />
     <tbody>
       {data.map(payload => (
-        <ViewerRow key={payload.url} payload={payload} maxTime={totalNetworkTime} />
+        <ViewerRow key={payload.index} payload={payload} maxTime={totalNetworkTime} />
       ))}
     </tbody>
   </table>
