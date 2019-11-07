@@ -17,7 +17,7 @@ export const NetworkProvider = (props) => {
 export const useNetwork = () => {
   const context = useContext(NetworkContext);
   if (!context) {
-    throw new Error('useNetwork must be used within a CountProvider');
+    throw new Error('useNetwork must be used within a NetworkProvider');
   }
   const [state, dispatch] = context;
 
