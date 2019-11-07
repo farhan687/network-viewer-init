@@ -1,31 +1,26 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ViewerHeader from '../Components/ViewerHeader';
 import ViewerRow from '../Components/ViewerRow';
 
 import Styles from './ViewerContainer.module.css';
+import { useNetwork } from '../state/provider';
 
-const ViewerContainer = ({ data, totalNetworkTime }) => (data.length ? (
-  <table className={Styles.table}>
-    <ViewerHeader maxTime={totalNetworkTime} />
-    <tbody>
-      {data.map(payload => (
-        <ViewerRow key={payload.index} payload={payload} maxTime={totalNetworkTime} />
-      ))}
-    </tbody>
-  </table>
-) : (
-  'NO DATA FOUND'
-));
+const ViewerContainer = () => {
+  const { state } = useNetwork();
+  const { data, totalNetworkTime } = state;
 
-ViewerContainer.propTypes = {
-  data: PropTypes.array,
-  totalNetworkTime: PropTypes.number,
-};
-
-ViewerContainer.defaultProps = {
-  data: [],
-  totalNetworkTime: null,
+  return (data.length ? (
+    <table className={Styles.table}>
+      <ViewerHeader maxTime={totalNetworkTime} />
+      <tbody>
+        {data.map(payload => (
+          <ViewerRow key={payload.index} payload={payload} maxTime={totalNetworkTime} />
+        ))}
+      </tbody>
+    </table>
+  ) : (
+    'NO DATA FOUND'
+  ));
 };
 
 export default ViewerContainer;

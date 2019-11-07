@@ -1,5 +1,5 @@
 import * as types from './types';
-import { filterData, sortBy } from './utils';
+import { filterData, sortBy } from '../utils';
 
 const initialState = {
   data: [],

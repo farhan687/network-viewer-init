@@ -85,3 +85,9 @@ export const filterData = (data, filter) => {
       return isSearchMatched && isFilterMatched;
     });
 };
+
+export const actionsWrapper = (actions = {}) => (dispatch, state) => Object.keys(actions)
+  .reduce((modifiedActions, type) => ({
+    ...modifiedActions,
+    [type]: actions[type](dispatch, state),
+  }), {});
