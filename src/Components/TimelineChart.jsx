@@ -6,7 +6,7 @@ import {
 
 const TimelineChart = ({ timings, maxTime }) => (
   <div>
-    <ResponsiveContainer height={50} width={300}>
+    <ResponsiveContainer height={50} width="100%">
       <BarChart layout="vertical" data={[timings]}>
         <XAxis hide type="number" domain={[-timings.startTime, maxTime]} />
         <YAxis hide dataKey="name" type="category" />

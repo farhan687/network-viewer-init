@@ -1,10 +1,12 @@
 export const getUrlInfo = (url) => {
   const urlInfo = new URL(url);
-  const filename = urlInfo.pathname.split('/');
+  const pathSplit = urlInfo.pathname.split('/');
+  const fileName = pathSplit[pathSplit.length - 1].trim()
+    ? pathSplit[pathSplit.length - 1] : pathSplit[pathSplit.length - 2];
 
   return {
     domain: urlInfo.host,
-    filename: filename[filename.length - 1] + urlInfo.search,
+    filename: fileName + urlInfo.search,
     url: urlInfo.href,
   };
 };
@@ -14,7 +16,7 @@ export const parseSize = ({ headers, content }) => {
     return Number((content.size / 1024).toFixed(2));
   }
 
-  const contentInfo = headers.find(({ name }) => name === 'content-length');
+  const contentInfo = headers.find(({ name }) => ['content-length', 'Content-Length'].includes(name));
   if (!contentInfo) {
     return 0;
   }
@@ -23,7 +25,7 @@ export const parseSize = ({ headers, content }) => {
 };
 
 export const getContentType = (headers) => {
-  const contentInfo = headers.find(({ name }) => name === 'content-type');
+  const contentInfo = headers.find(({ name }) => ['content-type', 'Content-Type'].includes(name));
   if (!contentInfo) {
     return '';
   }
